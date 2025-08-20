@@ -9,6 +9,9 @@ on:
 jobs:
     build:
         runs-on: ubuntu-latest
+        env:
+            ECR_REGISTRY: 303759786442.dkr.ecr.eu-north-1.amazonaws.com
+
         steps:
             - name: checkout code and lint
               uses: actions/checkout@v2
@@ -37,8 +40,6 @@ jobs:
                 docker push $ECR_REGISTRY/azubi-clms-frontend:${{ github.sha }}
                 docker push $ECR_REGISTRY/azubi-clms-frontend:latest
 
-                env:
-                    ECR_REGISTRY: 303759786442.dkr.ecr.eu-north-1.amazonaws.com
 
                     
 
