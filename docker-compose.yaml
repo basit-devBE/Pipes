@@ -1,0 +1,65 @@
+
+
+services: 
+  postgres:
+    container_name: Azubi-CLMS-Postgres
+    image: postgres:15
+    environment:
+      POSTGRES_DB: clms
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: POSTGRES_PASSWORD
+    ports:
+      - "5732:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - app-network
+  redis:
+    container_name: Azubi-CLMS-Redis
+    image: redis:latest
+    ports:
+      - "6378:6379"
+    networks:
+      - app-network
+  backend:
+    container_name: Azubi-CLMS-Backend
+    build: ./back-end
+    ports: 
+      - "8000:8000"
+    environment:
+      DB_CONNECTION: pgsql
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_DATABASE: clms
+      DB_USERNAME: postgres
+      DB_PASSWORD: POSTGRES_PASSWORD
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+    depends_on:
+      - postgres
+      - redis
+    networks:
+      - app-network
+
+  frontend:
+    container_name: Azubi-CLMS-Frontend
+    build: ./front-end
+    ports:
+      - "3000:3000"
+    environment:
+      - BACKEND_API_HOST=http://backend:8000
+    depends_on:
+      - backend
+    networks:
+      - app-network
+  
+volumes:
+    postgres_data:
+  
+networks:
+    app-network:
+      driver: bridge
+        
+     
+
+

@@ -1,0 +1,29 @@
+# Laravel/PHP
+/vendor/
+storage/
+bootstrap/cache/
+.env
+.env.*
+.phpunit.result.cache
+
+# Node
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# IDE/editor
+/.idea
+/.vscode
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Docker
+
+# Database
+database/*.sqlite
+database/*.db
+
+# Misc
+*.log

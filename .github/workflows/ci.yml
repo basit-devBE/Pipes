@@ -1,0 +1,46 @@
+name: CI/CD Pipeline
+on:
+    push:
+        branches:
+            - main
+    pull_request:
+        branches:
+            - main
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        steps:
+            - name: checkout code and lint
+              uses: actions/checkout@v2
+
+            - name: Configure AWS credentials
+              uses: aws-actions/configure-aws-credentials@v1
+              with:
+                aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+                aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+                aws-region: eu-north-1
+
+            - name: Login to ECR
+              uses: aws-actions/amazon-ecr-login@v1
+
+            - name: Build and Push Docker Images
+              run: |
+                docker build -t $ECR_REGISTRY/azubi-clms-backend:${{ github.sha }} ./back-end
+                docker build -t $ECR_REGISTRY/azubi-clms-backend:latest ./back-end
+                docker push $ECR_REGISTRY/azubi-clms-backend:${{ github.sha }}
+                docker push $ECR_REGISTRY/azubi-clms-backend:latest
+
+
+                # Build and Push Frontend Image
+                docker build -t $ECR_REGISTRY/azubi-clms-frontend:${{ github.sha }} ./front-end
+                docker build -t $ECR_REGISTRY/azubi-clms-frontend:latest ./front-end
+                docker push $ECR_REGISTRY/azubi-clms-frontend:${{ github.sha }}
+                docker push $ECR_REGISTRY/azubi-clms-frontend:latest
+
+                env:
+                    ECR_REGISTRY: 303759786442.dkr.ecr.eu-north-1.amazonaws.com
+
+                    
+
+
+  
