@@ -49,3 +49,4 @@ jobs:
           docker build -t 303759786442.dkr.ecr.eu-north-1.amazonaws.com/azubi-cls-frontend:latest ./front-end
           docker push 303759786442.dkr.ecr.eu-north-1.amazonaws.com/azubi-cls-frontend:${{ github.sha }}
           docker push 303759786442.dkr.ecr.eu-north-1.amazonaws.com/azubi-cls-frontend:latest
+          
