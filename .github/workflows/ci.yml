@@ -33,17 +33,17 @@ jobs:
               env:
                   ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}  # Use output from login step
               run: |
-                docker build -t $ECR_REGISTRY/azubi-cls-backend:${{ github.sha }} ./back-end
-                docker build -t $ECR_REGISTRY/azubi-cls-backend:latest ./back-end
-                docker push $ECR_REGISTRY/azubi-cls-backend:${{ github.sha }}
-                docker push $ECR_REGISTRY/azubi-cls-backend:latest
+                docker build -t 303759786442.dkr.ecr.eu-north-1.amazonaws.com/azubi-cls-backend:${{ github.sha }} ./back-end
+                docker build -t 303759786442.dkr.ecr.eu-north-1.amazonaws.com/azubi-cls-backend:latest ./back-end
+                docker push 303759786442.dkr.ecr.eu-north-1.amazonaws.com//azubi-cls-backend:${{ github.sha }}
+                docker push 303759786442.dkr.ecr.eu-north-1.amazonaws.com//azubi-cls-backend:latest
 
 
                 # Build and Push Frontend Image
-                docker build -t $ECR_REGISTRY/azubi-cls-frontend:${{ github.sha }} ./front-end
-                docker build -t $ECR_REGISTRY/azubi-cls-frontend:latest ./front-end
-                docker push $ECR_REGISTRY/azubi-cls-frontend:${{ github.sha }}
-                docker push $ECR_REGISTRY/azubi-cls-frontend:latest
+                docker build -t 303759786442.dkr.ecr.eu-north-1.amazonaws.com/azubi-cls-frontend:${{ github.sha }} ./front-end
+                docker build -t 303759786442.dkr.ecr.eu-north-1.amazonaws.com/azubi-cls-frontend:latest ./front-end
+                docker push 303759786442.dkr.ecr.eu-north-1.amazonaws.com/azubi-cls-frontend:${{ github.sha }}
+                docker push 303759786442.dkr.ecr.eu-north-1.amazonaws.com/azubi-cls-frontend:latest
 
 
                     
