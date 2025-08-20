@@ -1,16 +1,17 @@
 name: CI/CD Pipeline
 on:
-    push:
-        branches:
-            - master
-    pull_request:
-        branches:
-            - master
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: checkout code and lint
+      - name: Checkout code and lint
         uses: actions/checkout@v2
 
       - name: Configure AWS credentials
@@ -22,23 +23,29 @@ jobs:
 
       - name: Login to ECR
         uses: aws-actions/amazon-ecr-login@v1
+        id: login-ecr
 
-      - name: Show Docker config after ECR login
-        run: cat ~/.docker/config.json
+      - name: Debug registry URL
+        run: echo "Registry: ${{ steps.login-ecr.outputs.registry }}"
 
-      - name: Build and Push Docker Images
+      - name: Build and Push Backend Docker Image
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+        run: |
+          echo "Using registry: $ECR_REGISTRY"
+          docker build -t $ECR_REGISTRY/azubi-cls-backend:${{ github.sha }} ./back-end
+          docker push $ECR_REGISTRY/azubi-cls-backend:${{ github.sha }}
+
+      - name: Build and Push Backend Docker Images (latest tag)
         run: |
           docker build -t 303759786442.dkr.ecr.eu-north-1.amazonaws.com/azubi-cls-backend:${{ github.sha }} ./back-end
           docker build -t 303759786442.dkr.ecr.eu-north-1.amazonaws.com/azubi-cls-backend:latest ./back-end
           docker push 303759786442.dkr.ecr.eu-north-1.amazonaws.com/azubi-cls-backend:${{ github.sha }}
           docker push 303759786442.dkr.ecr.eu-north-1.amazonaws.com/azubi-cls-backend:latest
 
+      - name: Build and Push Frontend Docker Images
+        run: |
           docker build -t 303759786442.dkr.ecr.eu-north-1.amazonaws.com/azubi-cls-frontend:${{ github.sha }} ./front-end
           docker build -t 303759786442.dkr.ecr.eu-north-1.amazonaws.com/azubi-cls-frontend:latest ./front-end
           docker push 303759786442.dkr.ecr.eu-north-1.amazonaws.com/azubi-cls-frontend:${{ github.sha }}
-          docker push 303759786442.dkr.ecr.eu-north-1.amazonaws.com/azubi-cls-frontend:latest
-
-                    
-
-
-  
+          docker push 303759786442.dkr.ecr.eu-north-1.amazonaws.com/azubi-cls-
