@@ -35,8 +35,8 @@ jobs:
               run: |
                 docker build -t 303759786442.dkr.ecr.eu-north-1.amazonaws.com/azubi-cls-backend:${{ github.sha }} ./back-end
                 docker build -t 303759786442.dkr.ecr.eu-north-1.amazonaws.com/azubi-cls-backend:latest ./back-end
-                docker push 303759786442.dkr.ecr.eu-north-1.amazonaws.com//azubi-cls-backend:${{ github.sha }}
-                docker push 303759786442.dkr.ecr.eu-north-1.amazonaws.com//azubi-cls-backend:latest
+                docker push 303759786442.dkr.ecr.eu-north-1.amazonaws.com/azubi-cls-backend:${{ github.sha }}
+                docker push 303759786442.dkr.ecr.eu-north-1.amazonaws.com/azubi-cls-backend:latest
 
 
                 # Build and Push Frontend Image
