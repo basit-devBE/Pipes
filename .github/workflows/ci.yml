@@ -33,17 +33,17 @@ jobs:
               env:
                   ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}  # Use output from login step
               run: |
-                docker build -t $ECR_REGISTRY/azubi-clms-backend:${{ github.sha }} ./back-end
-                docker build -t $ECR_REGISTRY/azubi-clms-backend:latest ./back-end
-                docker push $ECR_REGISTRY/azubi-clms-backend:${{ github.sha }}
-                docker push $ECR_REGISTRY/azubi-clms-backend:latest
+                docker build -t $ECR_REGISTRY/azubi-cls-backend:${{ github.sha }} ./back-end
+                docker build -t $ECR_REGISTRY/azubi-cls-backend:latest ./back-end
+                docker push $ECR_REGISTRY/azubi-cls-backend:${{ github.sha }}
+                docker push $ECR_REGISTRY/azubi-cls-backend:latest
 
 
                 # Build and Push Frontend Image
-                docker build -t $ECR_REGISTRY/azubi-clms-frontend:${{ github.sha }} ./front-end
-                docker build -t $ECR_REGISTRY/azubi-clms-frontend:latest ./front-end
-                docker push $ECR_REGISTRY/azubi-clms-frontend:${{ github.sha }}
-                docker push $ECR_REGISTRY/azubi-clms-frontend:latest
+                docker build -t $ECR_REGISTRY/azubi-cls-frontend:${{ github.sha }} ./front-end
+                docker build -t $ECR_REGISTRY/azubi-cls-frontend:latest ./front-end
+                docker push $ECR_REGISTRY/azubi-cls-frontend:${{ github.sha }}
+                docker push $ECR_REGISTRY/azubi-cls-frontend:latest
 
 
                     
