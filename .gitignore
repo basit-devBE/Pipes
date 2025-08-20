@@ -1,6 +1,6 @@
 # Laravel/PHP
 /vendor/
-storage/
+# storage/
 bootstrap/cache/
 .phpunit.result.cache
 
