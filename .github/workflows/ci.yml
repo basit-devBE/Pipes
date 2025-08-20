@@ -26,7 +26,7 @@ jobs:
         id: login-ecr
 
       - name: Debug registry URL
-        run: echo "Registry: ${{ steps.login-ecr.outputs.registry }}"
+        run: "echo \"Registry: ${{ steps.login-ecr.outputs.registry }}\""
 
       - name: Build and Push Backend Docker Image
         env:
