@@ -12,6 +12,7 @@ export default function UsersIndex({users}) {
     const [data, setData] = useState([]);
     const [query, setQuery] = useState("");
     const [activeRecord, setActiveRecord] = useState(null);
+    // Filtered data based on search query
 
     useEffect(() => {
         fetchData();
