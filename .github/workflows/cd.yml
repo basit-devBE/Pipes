@@ -1,0 +1,33 @@
+name: Deployment Pipeline
+
+on:
+    workflow_run:
+        workflows: ["CI/CD Pipeline"]
+        types:
+            - completed
+
+jobs:
+    deploy:
+        runs-on: self-hosted
+        steps:
+            - name: Configure AWS Credentials
+              uses: aws-actions/configure-aws-credentials@v2
+              with:
+                aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+                aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+                aws-region: eu-north-1
+
+            - name: Login to ECR
+              uses: aws-actions/amazon-ecr-login@v1
+
+            - name: Pull images from ECR
+              run: |
+                docker pull 303759786442.dkr.ecr.eu-north-1.amazonaws.com/azubi-cls-backend:latest
+                docker pull 303759786442.dkr.ecr.eu-north-1.amazonaws.com/azubi-cls-frontend:latest
+
+            - name: Restart Docker Compose services
+              run: |
+                docker compose down
+                docker compose up -d
+            
+    
