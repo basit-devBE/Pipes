@@ -26,6 +26,7 @@ jobs:
                 docker pull 303759786442.dkr.ecr.eu-north-1.amazonaws.com/azubi-cls-frontend:latest
 
             - name: Restart Docker Compose services
+              working-directory: /home/basit/Desktop/github_projects/CI-CD Pipeline
               run: |
                 docker compose down
                 docker compose up -d
