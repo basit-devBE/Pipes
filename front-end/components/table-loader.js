@@ -6,4 +6,7 @@ export default function TableLoader({children}) {
             <Loader/>
         </div>
     );
+
+
+    
 }
