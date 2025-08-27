@@ -13,6 +13,12 @@ export default async function auth({req, res}) {
     }
 
 
+
+
+
+    
+
+
     let configBundle = {
         user: req.session.get('user'),
         apiToken: req.session.get('api_token'),
