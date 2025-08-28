@@ -10,13 +10,7 @@ export default async function auth({req, res}) {
                 permanent: false,
             },
         }
-    }
-
-
-
-
-
-    
+    }    
 
 
     let configBundle = {
